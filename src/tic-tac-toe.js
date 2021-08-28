@@ -5,6 +5,11 @@ class TicTacToe {
             [null, null, null],
             [null, null, null]
         ];
+        this.vertical = [
+            [null, null, null],
+            [null, null, null],
+            [null, null, null]
+        ];
         this.playersSequence = [];
     }
 
@@ -45,19 +50,16 @@ class TicTacToe {
             return winner;
         }
         
-        // make vertical arr
-        let vertical = [
-            [null, null, null],
-            [null, null, null],
-            [null, null, null]
-        ];
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                vertical[i][j] = this.underGame[j][i];
+        function transpose(arrA, arrB) {
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    arrA[i][j] = arrB[j][i];
+                }
             }
+            return arrA;
         }
 
-        return lineChecker(this.underGame) || lineChecker(vertical) || diagonalChecker(this.underGame);
+        return lineChecker(this.underGame) || lineChecker(transpose(this.vertical,this.underGame)) || diagonalChecker(this.underGame);
     }
 
     noMoreTurns() {
